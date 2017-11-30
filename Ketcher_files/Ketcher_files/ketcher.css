@@ -1,0 +1,810 @@
+body {
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 12px;
+}
+
+body, ul, li,input, select, textarea, table, tr, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+th {
+    text-align: left;
+    font-weight: normal;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+input[type='text'], textarea, select {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #CCC;
+}
+
+input[type='text'], select {
+    vertical-align: middle;
+}
+
+input[type='text'] {
+    padding: 0 5px;
+}
+
+textarea {
+    padding: 3px 5px;
+}
+
+/*=============基本结构===================*/
+.ketcher {
+    width: 850px;
+    margin: 0 auto;
+    position: relative;
+    border:1px solid #ccc;
+    -moz-border-radius: 3px 3px 0 0;
+    -webkit-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
+}
+
+.ketcher_top {
+    width: 100%;
+    background-color: #f1f2f8;
+    overflow: hidden;
+    height: 38px;
+}
+
+.ketcher_top>div {
+    float: left;
+}
+
+.ketcher_main {
+    overflow: hidden;
+    display: table;
+}
+
+.ketcher_left {
+    width: 35px;
+    display: table-cell;
+    text-align: left;
+    background-color: #f1f2f8;
+    vertical-align: top;
+}
+
+/*ketcher draw*/
+.ketcher_draw {
+    display: table-cell;
+    overflow: hidden;border:1px solid #f1f2f8;
+    text-align: left;
+    width: 920px;
+    height: 480px;
+}
+
+#client_area
+{
+    background-color: #fff;
+    text-align: left;
+    overflow: auto;
+    /*height: 480px;*/
+    /*width: 920px;*/
+}
+
+.ketcher_right {
+    display: table-cell;
+    width: 38px;background-color: #f1f2f8;
+    text-align: right;
+}
+
+.ketcher_top>div, .ketcher_left>div,.ketcher_right>div {
+    width: 32px;
+    height: 32px;
+    margin: 4px 4px;
+    text-align: center;
+    position: relative;
+}
+ .ketcher_left>div>img {
+    width: 32px;
+    height: 32px;
+    text-align: center;
+}
+.ketcher_left div:first-child, .ketcher_right div:first-child, .ketcher_draw div:first-child {
+    display: inline-block;
+    vertical-align: top;
+}
+
+/*icon*/
+.ketcher_left>div>.dropdownButton
+{
+    cursor: pointer;
+    position: absolute;
+    left: 25px;
+    top: 25px;
+    width: 8px;
+    height: 8px;
+}
+
+.img_svg {
+    width: 23px;
+    height: 23px;
+    margin:4px;
+}
+.ketcher_left>div>.img_svg{
+    width: 23px;
+    height: 23px;
+    margin:4px;
+}
+.img_png {
+    width: 23px;
+    height: 23px;
+    margin:4px;
+}
+
+.img_svg_droplist {
+    width: 24px;
+    height: 24px;
+}
+
+/*.sideButtonCell*/
+/*{*/
+/*height: 36px;*/
+/*}*/
+
+/*.toolButtonCell*/
+/*{*/
+/*width: 40px;*/
+/*}*/
+
+.sideButton
+{
+    width: 32px;
+    height: 32px;
+    /*padding: 1px;*/
+}
+
+.buttonDisabled
+{
+    opacity: 0.25;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=25)";
+    filter: alpha(opacity=25);
+}
+
+.toolButton, .sideButton
+{
+    cursor: pointer;
+}
+
+.buttonPressed, .buttonSelected
+{
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.buttonHighlight
+{
+    border-color: #555;
+}
+
+/*.ketcher*/
+/*{*/
+    /*position: relative;*/
+    /*width: 1000px;*/
+    /*margin: 0 auto;*/
+    /*height: 100%;*/
+/*}*/
+
+a, img
+{
+    border-color: #111;
+    color: #E0E0E0;
+    border-width: 0;
+    vertical-align: middle;
+    padding: 1px;
+}
+
+td
+{
+    padding: 0;
+}
+
+table#ketcher_window
+{
+    position: absolute;
+    z-index: 1;
+    width: 1000px;
+    height: auto;
+    table-layout: fixed;
+    background-color:#f1f2f8;
+    border: 1px solid #DDD;
+}
+
+#main_toolbar
+{
+    height: 40px;
+}
+
+.toolIcon
+{
+    width: 32px;
+    height: 36px;
+}
+
+.toolDelimiter
+{
+    width: 16px;
+}
+
+/*reagenerics_table*/
+#reagenerics_table_area
+{
+    border-style: none;
+}
+
+/*==================== Dropdown List ======================== */
+.dropdownList
+{
+    position: absolute;
+    z-index: 2;
+    left: 2px;
+    background-color: #FAFAFA;
+    border:1px solid #DDD;
+}
+
+.dropdownList > table
+{
+    font-size: 14px;
+    color: #555;
+}
+
+#selector_dropdown_list
+{
+    top: 40px;
+}
+
+#bond_dropdown_list
+{
+    top: 120px;
+}
+
+#template_dropdown_list
+{
+    top: 200px;
+}
+
+#reaction_dropdown_list
+{
+    top: 379px;
+    left: 42px;
+}
+
+#rgroup_dropdown_list
+{
+    top: 406px;
+}
+
+.dropdownListItem
+{
+    cursor: default;
+}
+
+.dropdownListItem > td {
+    height: 24px;
+    line-height: 24px;
+}
+
+.dropdownListItem > td > div
+{
+    height: 24px;
+    width:  24px;
+    float:  left;
+    margin-right: 2px;
+    margin-top : -2px;
+}
+
+.dropdownListDelimiter
+{
+    background-color: #ddd;
+    height: 1px;
+}
+
+.highlightedItem
+{
+    background-color: #EEE;
+}
+
+#buffer_frame
+{
+    display: none;
+}
+
+input#input_label
+{
+    position: absolute;
+    z-index:  3;
+}
+
+/*==================== Pop ======================== */
+/*window cover*/
+div#window_cover
+{
+    position: absolute;
+    z-index:  4;
+    background-color: black;
+    left:     0;
+    top:      0;
+    opacity:    0.2;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
+    filter:     alpha(opacity=10);
+}
+
+div#loading
+{
+    width:  100%;
+    height: 100%;
+    background-image: url('loading.gif');
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+/*pop div*/
+.dialogWindow
+{
+    position: absolute;
+    z-index:  5;
+    background-color: #FFF;
+    border: 1px solid #DDD;
+    text-align: center;
+    padding: 5px 20px;
+    top: 40px;
+    left: 40px;
+    font-size: 14px;
+}
+
+.dialogWindow > div > div:first-child
+{
+    background-color: #FFF;
+    font-size: 18px;
+    padding: 8px 0 0 0;
+    font-weight: bold;
+    text-align: center;
+}
+
+/*Save File*/
+.chemicalText
+{
+    width: 675px;
+    height: 309px;
+    overflow:    auto;
+    white-space: pre;
+    margin: 10px 0;
+}
+
+.chemicalText_IE
+{
+    white-space: pre;
+}
+
+.save_file_format {
+    padding: 0 7px 5px 0;
+    text-align: right;
+}
+
+.save_file_format select {
+    height: 26px;
+    margin-left: 10px;
+    width: 160px
+}
+
+/*Open File*/
+.txta_opent_file
+{
+    width: 675px;
+    height: 338px;
+    overflow:auto;
+    white-space: pre;
+    margin: 10px 0;
+}
+
+.dataSGroupValue
+{
+    width: 320px;
+    height: 200px;
+    overflow:    auto;
+}
+
+.fileDialog {  }
+.propDialog {  }
+
+
+/*Periodic table*/
+.elemTableDialog
+{
+    /*left:  5%;*/
+    /*top:   5%;*/
+    /*top: 40px;*/
+    /*left: 40px;*/
+}
+#elem_table_area
+{
+    border-style: none;
+    width: 720px;
+    padding-bottom: 20px;
+}
+
+#periodic_tbl_rdo {
+    padding-top: 10px;
+}
+
+#periodic_tbl_rdo label {
+    display: inline-block;
+    margin-right: 30px;
+    font-size: 14px;
+}
+
+#periodic_tbl_rdo label input {
+    margin-right: 5px;
+    margin-top: -2px;
+}
+
+/*rgroup_table_area*/
+#rgroup_table {
+    /*width: 350px;*/
+}
+#rgroup_table_area {
+    margin: 10px 10px 0 10px;
+}
+
+/*Attachment Points*/
+.attachement_points_form {
+    text-align: left;
+    padding: 18px 70px 10px 70px
+}
+
+.attachement_points_form label {
+    margin-top: 5px;
+}
+
+.attachement_points_form label input {
+    margin-top: -1px;
+    margin-right: 10px;
+}
+
+#elem_table {
+    left: 50%;
+    margin-left: -380px;
+}
+
+#reagenerics_table {
+    left: 50%;
+    margin-left: -330px;
+}
+
+#rgroup_table {
+    top:50%;
+    left:50%;
+    margin-top: -125px;
+    margin-left: -180px;
+}
+
+#atom_attpoints {
+    top:50%;
+    left:50%;
+    margin-top: -80px;
+    margin-left: -180px;
+}
+
+#open_file, #save_file {
+    left:50%;
+    margin-left: -360px;
+}
+
+/*S-Group Properties*/
+#sgroup_properties {
+    left:50%;
+    top:50%;
+    margin-left: -245px;
+    margin-top: -120px;
+    text-align: left;
+}
+
+.sgroup_properties_form {
+    margin: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.sgroup_properties_form th, .sgroup_properties_form td {
+    padding-top: 8px;
+    vertical-align: top;
+}
+
+.sgroup_properties_form th {
+    width: 120px;
+}
+
+.sgroup_properties_form tr th span {
+    display: block;
+    margin-top: 6px;
+}
+
+.sgroup_properties_form td {
+    width: 320px;
+}
+
+.sgroup_properties_form td select {
+    height: 28px;
+    width: 300px;
+}
+
+.sgroup_properties_form td input[type='text'] {
+    height: 28px;
+    width: 300px;
+}
+
+.sgroup_properties_form td label {
+    margin-right: 20px;
+}
+
+.sgroup_properties_form td label input[type='radio'] {
+    margin-right: 5px;
+    margin-bottom: 1px;
+}
+
+.sgroup_properties_form td textarea {
+    width: 300px;
+    height: 60px;
+}
+
+/*S-Group Properties*/
+#bond_properties {
+    left:50%;
+    top:50%;
+    margin-left: -255px;
+    margin-top: -100px;
+    text-align: left;
+}
+
+.bond_properties_form {
+    margin: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.bond_properties_form th, .bond_properties_form td {
+    padding-top: 8px;
+    vertical-align: top;
+}
+
+.bond_properties_form th {
+    width: 120px;
+}
+
+.bond_properties_form tr th span {
+    display: block;
+    margin-top: 6px;
+}
+
+.bond_properties_form td {
+    width: 320px;
+}
+
+.bond_properties_form td select {
+    height: 28px;
+    width: 300px;
+}
+
+.bond_properties_form td input[type='text'] {
+    height: 28px;
+    width: 300px;
+}
+
+/*S-Group Properties*/
+#automap_properties {
+    left:50%;
+    top:50%;
+    margin-left: -230px;
+    margin-top: -75px;
+    text-align: left;
+}
+
+.automap_properties_form {
+    margin: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.automap_properties_form th, .automap_properties_form td {
+    padding-top: 8px;
+    vertical-align: top;
+}
+
+.automap_properties_form th {
+    width: 60px;
+}
+
+.automap_properties_form tr th span {
+    display: block;
+    margin-top: 6px;
+}
+
+.automap_properties_form td {
+    width: 320px;
+}
+
+.automap_properties_form td select {
+    height: 28px;
+    width: 300px;
+}
+
+.automap_properties_form td input[type='text'] {
+    height: 28px;
+    width: 300px;
+}
+
+/*atom_properties*/
+#atom_properties {
+    left:50%;
+    top:50%;
+    margin-left: -305px;
+    margin-top: -200px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.atom_properties_form {
+    margin: 20px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.atom_properties_form tr th, .atom_properties_form tr td {
+    padding-top: 8px;
+    vertical-align: top;
+}
+
+.atom_properties_form tr th {
+    width: 100px;
+}
+
+.atom_properties_form tr th span {
+    display: block;
+    margin-top: 6px;
+}
+
+.atom_properties_form tr td {
+    width: 120px;
+}
+
+.atom_properties_form tr th:nth-child(1) {
+    width: 130px;
+}
+
+.atom_properties_form tr td:nth-child(2) {
+    width: 180px;
+}
+
+.atom_properties_form td select {
+    height: 28px;
+    width: 120px;
+}
+
+.atom_properties_form td input[type='text'] {
+    height: 28px;
+    width: 120px;
+}
+
+/*===========form style==============*/
+input[type="text"], button, textarea, select {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    font-family: Roboto, Arial, sans-serif;
+}
+
+textarea {
+    resize: none;
+    padding: 5px;
+}
+
+input, button, select {
+    vertical-align: middle;
+}
+
+input[type='button'],button {
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#fafafa), to(#EEEEEE));
+}
+
+/*ok and cancel btn*/
+.btn_div {
+    padding: 10px;
+}
+
+.btn_cancel,.btn_ok,.btn_close {
+    width: 80px;
+    height: 26px;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #CCC;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.btn_cancel {
+    margin-right: 10px;
+}
+
+
+/*===========structure_search_form==============*/
+.structure_search_form {
+    width: 1000px;
+    margin: 0 auto;
+    font-size: 14px;
+    background-color: #f0f0f0;
+    overflow: hidden;
+    padding: 10px;
+    border: 1px solid #DDD;
+    -moz-border-radius: 0 0 3px 3px;
+    -webkit-border-radius: 0 0 3px 3px;
+    border-radius: 0 0 3px 3px;
+}
+
+.structure_convert {
+    float: left;
+}
+
+.structure_convert textarea {
+    width: 400px;
+    height: 40px;
+    line-height: 18px;
+    padding: 2px 5px;
+    border: 1px solid #CCC;
+    float: left;
+}
+
+.structure_convert input[type="button"] {
+    width: 60px;
+    height: 40px;
+    border: 1px solid #CCC;
+    float: left;
+    margin-left: 10px;
+}
+
+.border-radius-3 {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.structure_search {
+    float: right;
+}
+
+.structure_search label {
+    margin-right: 10px;
+    line-height: 40px;
+    display: inline-block;
+}
+
+.structure_search label input {
+    margin-top: -3px;
+}
+
+.structure_search input[type="button"] {
+    width: 80px;
+    height: 40px;
+    border: 1px solid #CCC;
+    margin-left: 10px;
+    font-weight: bold;
+}
+

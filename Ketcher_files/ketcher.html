@@ -1,0 +1,677 @@
+<!--<!DOCTYPE html>-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="renderer" content="webkit" />
+  <title>结构式搜索</title>
+  <link rel="stylesheet" type="text/css" href="Ketcher_files/ketcher.css">
+  <script type="text/javascript" src="Ketcher_files/prototype-min.js"></script>
+  <script type="text/javascript" src="Ketcher_files/raphael.js"></script>
+  <script type="text/javascript" src="Ketcher_files/base64.js"></script>
+  <script type="text/javascript" src="Ketcher_files/common.js"></script>
+  <script type="text/javascript" src="Ketcher_files/vec2.js"></script>
+  <script type="text/javascript" src="Ketcher_files/set.js"></script>
+  <script type="text/javascript" src="Ketcher_files/map.js"></script>
+  <script type="text/javascript" src="Ketcher_files/pool.js"></script>
+  <script type="text/javascript" src="Ketcher_files/element.js"></script>
+  <script type="text/javascript" src="Ketcher_files/struct.js"></script>
+  <script type="text/javascript" src="Ketcher_files/molfile.js"></script>
+  <script type="text/javascript" src="Ketcher_files/sgroup.js"></script>
+  <script type="text/javascript" src="Ketcher_files/struct_valence.js"></script>
+  <script type="text/javascript" src="Ketcher_files/dfs.js"></script>
+  <script type="text/javascript" src="Ketcher_files/cis_trans.js"></script>
+  <script type="text/javascript" src="Ketcher_files/stereocenters.js"></script>
+  <script type="text/javascript" src="Ketcher_files/smiles.js"></script>
+  <script type="text/javascript" src="Ketcher_files/events.js"></script>
+  <script type="text/javascript" src="Ketcher_files/visel.js"></script>
+  <script type="text/javascript" src="Ketcher_files/restruct.js"></script>
+  <script type="text/javascript" src="Ketcher_files/restruct_rendering.js"></script>
+  <script type="text/javascript" src="Ketcher_files/render.js"></script>
+  <script type="text/javascript" src="Ketcher_files/editor.js"></script>
+  <script type="text/javascript" src="Ketcher_files/elem_table.js"></script>
+  <script type="text/javascript" src="Ketcher_files/rgroup_table.js"></script>
+  <script type="text/javascript" src="Ketcher_files/ui.js"></script>
+  <script type="text/javascript" src="Ketcher_files/actions.js"></script>
+  <script type="text/javascript" src="Ketcher_files/reaxys.js"></script>
+  <script type="text/javascript" src="Ketcher_files/ketcher.js"></script>
+  <script type="text/javascript">
+  </script>
+  <style>
+    .ketcher_draw{
+      position: relative;
+      overflow: hidden;
+    }
+    #client_area{
+      position: absolute; left: 0;
+      overflow-x: scroll;
+      overflow-y: scroll;
+    }
+    #client_area::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+<body onload="ketcher.init()">
+<div class="ketcher" id="ketcher_window" style="overflow: hidden;">
+  <!--======================top====================-->
+  <div class="ketcher_top">
+    <div  style="position:relative;display: none;"  id="selector">
+    </div>
+    <div class="sideButton modeButton" selid="selector_lasso" id="">
+      <img  title="Select Tool (Esc)" src="Ketcher_files/lasso.svg" class="sideButton modeButton stateButton"  alt="" >
+    </div>
+
+
+    <div class="toolButtonCell toolButton" id="new"><img title="New (Ctrl+N)" src="Ketcher_files/clear.svg" class="img_svg" alt="" ></div>
+    <div class="toolButtonCell toolButton" id="open"><img title="Open... (Ctrl+O)" src="Ketcher_files/import.svg" class="img_svg" alt="" ></div>
+    <div class="toolButtonCell toolButton" id="save"><img title="Save As... (Ctrl+S)" src="Ketcher_files/save.svg" class="img_svg" alt=""></div>
+
+    <div class="toolButtonCell toolButton buttonDisabled" id="undo"><img title="Undo (Ctrl+Z)" src="Ketcher_files/undo.svg" class="img_svg" alt="" ></div>
+    <div class="toolButtonCell toolButton buttonDisabled" id="redo"><img title="Redo (Ctrl+Shift+Z)" src="Ketcher_files/redo.svg" class="img_svg" alt=""></div>
+    <div class="toolButtonCell toolButton buttonDisabled" id="cut"><img title="Cut (Ctrl+X)" src="Ketcher_files/edit-cut.svg" class="img_svg" alt=""></div>
+    <div class="toolButtonCell toolButton buttonDisabled" id="copy"><img title="Copy (Ctrl+C)" src="Ketcher_files/edit-copy.svg" class="img_svg" alt=""></div>
+    <div class="toolButtonCell toolButton buttonDisabled" id="paste"><img title="Paste (Ctrl+V)" src="Ketcher_files/edit-paste.svg" class="img_svg" alt=""></div>
+
+    <div class="toolButtonCell toolButton" id="zoom_in"><img title="Zoom In (+)" src="Ketcher_files/view-zoom-in.svg" class="img_svg" alt=""></div>
+    <div class="toolButtonCell toolButton" id="zoom_out"><img title="Zoom Out (-)" src="Ketcher_files/view-zoom-out.svg" class="img_svg" alt=""></div>
+
+    <div class="sideButton modeButton" id="charge_plus" title="Charge Plus (5)"><!--JS--></div>
+
+    <div class="sideButton modeButton" id="charge_minus" title="Charge Minus (5)"><!--JS--></div>
+    <div class="sideButton modeButton" id="sgroup">
+      <img title="S-Group (Ctrl+G)" alt="" src="Ketcher_files/sgroup.png" style="width: 32px;">
+    </div>
+
+    <div class="toolButtonCell toolButton serverRequired buttonDisabled" id="clean_up"><img title="Clean Up (Ctrl+L)" alt="" src="Ketcher_files/layout.png" class="img_png"></div>
+    <div class="toolButtonCell toolButton serverRequired buttonDisabled" id="aromatize"><img title="Aromatize" alt="" src="Ketcher_files/arom.png" class="img_png"></div>
+    <div  class="toolButtonCell toolButton serverRequired buttonDisabled" id="dearomatize"><img title="Dearomatize" alt="" src="Ketcher_files/dearom.png" class="img_png"></div>
+    <div style="margin: 0;margin-left: 15px">
+      <img src="Ketcher_files/logo.png" style="height:38px;" alt="">
+    </div>
+  </div>
+
+
+  <div class="ketcher_main">
+    <!--======================left====================-->
+    <div class="ketcher_left">
+
+      <div class="sideButton modeButton" id="selector_fragment" selid="selector_fragment"><img src="Ketcher_files/structure.png" alt="Fragment selection tool"></div>
+      <div style="position:relative;display: none">
+        <div class="sideButton modeButton stateButton" id="bond"  title="Single Bond (1)"><!--JS--></div>
+        <img src="Ketcher_files/dropdown.png" class="dropdownButton" id="bond_dropdown"  alt="">
+      </div>
+
+      <div class="sideButton modeButton sign" id="bond_single"></div>
+      <div class="sideButton modeButton sign" id="bond_triple"></div>
+      <div class="sideButton modeButton sign" id="bond_down"></div>
+      <div class="sideButton modeButton sign" id="bond_crossed"></div>
+      <div class="sideButton modeButton sign" id="bond_aromatic"></div>
+      <div class="sideButton modeButton sign" id="bond_singlearomatic"></div>
+      <div class="sideButton modeButton sign" id="bond_doublearomatic"></div>
+      <div class="sideButton modeButton sign_1" id="template_1"></div>
+      <div class="sideButton modeButton sign_1" id="template_3"></div>
+      <div class="sideButton modeButton sign_1" id="template_5">
+      </div>
+      <div class="sideButton modeButton sign_1" id="template_7"></div>
+      <div style="position:relative" >
+        <img id="rgroup"  selid="rgroup_label" class="sideButton modeButton stateButton" title="R-Group Tool (Shift+R)" alt="" src="Ketcher_files/rgroup-label.png" >
+        <img id="rgroup_dropdown" class="dropdownButton"  src="Ketcher_files/dropdown.png" alt="">
+      </div>
+    </div>
+    <div class="ketcher_left">
+      <div class="sideButton modeButton" id="selector_square" selid="selector_square"><img src="Ketcher_files/rectangle.png" alt="Rectangle selection tool" style="width: 32px"></div>
+      <div class="sideButton modeButton" id="select_erase"><img class="img_svg" src="Ketcher_files/erase.svg" alt="" title="Erase"></div>
+      <div class="sideButton modeButton sign" id="bond_double"></div>
+      <div class="sideButton modeButton sign" id="bond_up"></div>
+      <div class="sideButton modeButton sign" id="bond_updown"></div>
+      <div class="sideButton modeButton sign" id="bond_any"></div>
+      <div class="sideButton modeButton sign" id="bond_singledouble"></div>
+      <div class="sideButton modeButton" id="chain" title="Chain Tool"><!--JS--></div>
+      <div style="position:relative;display:none;">
+        <div class="sideButton modeButton stateButton" id="template" ><!--JS--></div>
+      </div>
+      <div class="sideButton modeButton sign_1" id="template_0" title="Benzene (T)"></div>
+
+      <div class="sideButton modeButton sign_1" id="template_2"></div>
+
+      <div class="sideButton modeButton sign_1" id="template_4">
+        <img class="sideButton modeButton stateButton"  src="Ketcher_files/reaction-arrow.png" alt="" title="Reaction Mapping Tool">
+      </div>
+      <div class="sideButton modeButton sign_1" id="template_6"></div>
+
+      <div style="position:relative">
+        <img class="sideButton modeButton stateButton" id="reaction" selid="reaction_arrow" src="Ketcher_files/reaction-arrow.png" alt="" title="Reaction Mapping Tool">
+        <img class="dropdownButton" id="reaction_dropdown" src="Ketcher_files/dropdown.png" alt="">
+      </div>
+
+
+    </div>
+    <!--=====================center=====================-->
+    <div class="ketcher_draw">
+      <div id="client_area"><!--JS--></div>
+    </div>
+
+    <!--======================right====================-->
+    <div class="ketcher_right">
+      <div>
+        <!--H-->
+        <div class="sideButton modeButton" id="atom_h" title="H Atom (H)"><!--JS--></div>
+        <!--C-->
+        <div class="sideButton modeButton" id="atom_c" title="C Atom (C)"><!--JS--></div>
+        <!--N-->
+        <div class="sideButton modeButton" id="atom_n" title="N Atom (N)"><!--JS--></div>
+        <!--O-->
+        <div class="sideButton modeButton" id="atom_o" title="O Atom (O)"><!--JS--></div>
+        <!--S-->
+        <div class="sideButton modeButton" id="atom_s" title="S Atom (S)"><!--JS--></div>
+        <!--P-->
+        <div class="sideButton modeButton" id="atom_p" title="P Atom (P)"><!--JS--></div>
+        <!--F-->
+        <div class="sideButton modeButton" id="atom_f" title="F Atom (F)"><!--JS--></div>
+        <!--Cl-->
+        <div class="sideButton modeButton" id="atom_cl" title="Cl Atom (Shift+C)"><!--JS--></div>
+        <!--Br-->
+        <div class="sideButton modeButton" id="atom_br" title="Br Atom (Shift+B)"><!--JS--></div>
+        <!--I-->
+        <div class="sideButton modeButton" id="atom_i" title="I Atom (I)"><!--JS--></div>
+        <!--W-->
+        <div class="sideButton modeButton" id="atom_w" title="I Atom (W)"><!--JS--></div>
+        <!--...-->
+        <div class="sideButton modeButton buttonSelected" id="atom_table" title="Periodic table"><!--JS--></div>
+        <!--Groups-->
+        <div class="sideButton modeButton" id="atom_reagenerics" title="Reaxys Generics"><!--JS--></div>
+      </div>
+    </div>
+  </div>
+
+  <!--DropDownList: Selector-->
+  <div class="dropdownList" id="selector_dropdown_list" style="display:none">
+    <table>
+      <tbody>
+      <tr class="dropdownListItem" id="selector_lasso" title="Lasso Selection Tool">
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!--DropDownList: Line-->
+  <div class="dropdownList renderFirst" id="bond_dropdown_list" style="display:none">
+    <table>
+
+    </table>
+  </div>
+
+  <!--DropDownList: molecular ring-->
+  <div class="dropdownList renderFirst" id="template_dropdown_list" style="display:none">
+    <table>
+
+    </table>
+  </div>
+
+  <!--DropDownList: Reaction-->
+  <div class="dropdownList" id="reaction_dropdown_list" style="display:none">
+    <table>
+      <tbody>
+      <tr class="dropdownListItem" id="reaction_arrow" title="Reaction Arrow Tool">
+        <td><div id="reaction_arrow_todo"><img class="img_svg_droplist" src="Ketcher_files/solid_small.svg" alt=""></div>Reaction Arrow Tool</td>
+      </tr>
+      <tr class="dropdownListItem" id="reaction_plus" title="Reaction Plus Tool">
+        <td><div id="reaction_plus_todo"><img class="img_svg_droplist" src="Ketcher_files/reaction-plus.png" alt=""></div>Reaction Plus Tool</td>
+      </tr>
+      <tr class="dropdownListItem serverRequired" id="reaction_automap" title="Reaction Mapping Tool" style="display: none;">
+        <td><div id="reaction_automap_todo"><img class="img_svg_droplist" src="Ketcher_files/reaction-automap.png" alt="" style="width:24px;height:24px;"></div>Reaction Auto-Mapping</td>
+      </tr>
+      <tr class="dropdownListItem" id="reaction_map" title="Reaction Mapping Tool">
+        <td><div id="reaction_map_todo"><img class="img_svg_droplist" src="Ketcher_files/reaction-map.png" alt="" style="width:24px;height:24px;"></div>Reaction Mapping Tool</td>
+      </tr>
+      <tr class="dropdownListItem" id="reaction_unmap" title="Reaction Unmappping Tool">
+        <td><div id="reaction_unmap_todo"><img class="img_svg_droplist" src="Ketcher_files/reaction-unmap.png" alt="" style="width:24px;height:24px;"></div>Reaction Unmapping Tool</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!--DropDownList: R-Group-->
+  <div class="dropdownList" id="rgroup_dropdown_list" style="display:none">
+    <table>
+      <tbody>
+      <tr class="dropdownListItem" id="rgroup_label" title="R-Group Label Tool (Shift+R)">
+        <td><div id="rgroup_label_todo"><img class="img_svg_droplist" src="Ketcher_files/rgroup-label.png" alt=""></div>R-Group Label Tool</td>
+      </tr>
+      <tr class="dropdownListItem" id="rgroup_fragment" title="R-Group Fragment Tool (Shift+R)">
+        <td><div id="rgroup_fragment_todo"><img class="img_svg_droplist" src="Ketcher_files/rgroup-fragment.png" alt=""></div>R-Group Fragment Tool</td>
+      </tr>
+      <tr class="dropdownListItem" id="rgroup_attpoints" title="Attachment Point Tool (Shift+R)">
+        <td><div id="rgroup_attpoints_todo"><img class="img_svg_droplist" src="Ketcher_files/rgroup-attpoints.png"></div>Attachment Point Tool</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <input id="input_label" type="text" maxlength="4" size="4" style="display:none;">
+
+  <div id="window_cover" style="width: 0; height: 0; display: none;"><div id="loading" style="display:none;"></div></div>
+
+  <!--POP: Open File-->
+  <div class="dialogWindow fileDialog" id="open_file" style="display:none;">
+    <div style="width:100%">
+      <div>Open File</div>
+      <div class="serverRequired" style="font-size: small; display: none;">
+        <input type="radio" id="radio_open_from_input" name="input_source" checked="">Input
+        <input type="radio" id="radio_open_from_file" name="input_source">File
+      </div>
+      <div class="serverRequired" style="font-size: small; display: none;" align="left">
+        <input type="checkbox" id="checkbox_open_copy" name="open_mode">Load as a fragment and copy to the Clipboard
+      </div>
+      <!-- open_from_file -->
+      <div class="serverRequired" id="open_from_file" style="display: none;">
+        <form id="upload_mol" style="margin-top:4px" action="/Ketcher/open" enctype="multipart/form-data"
+              target="buffer_frame" method="post">
+          <input type="file" name="filedata" id="molfile_path">
+          <div class="btn_div">
+            <input type="submit" value="OK" class="btn_ok">
+            <input id="upload_cancel" type="button" value="Cancel" class="btn_cancel">
+          </div>
+        </form>
+      </div>
+      <div id="open_from_input">
+        <textarea class="txta_opent_file" id="input_mol" wrap="off"></textarea>
+        <div class="btn_div">
+          <input id="read_ok" type="submit" value="OK" class="btn_ok">
+          <input id="read_cancel" type="button" value="Cancel" class="btn_cancel">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--POP: Save File-->
+  <div class="dialogWindow fileDialog" id="save_file" style="display:none;">
+    <div style="width:100%">
+      <div>Save File</div>
+      <div class="save_file_format">
+        <label>Format: </label>
+        <select id="file_format">Format:
+          <option value="mol">MDL/Symyx Molfile</option>
+          <option value="smi">Daylight SMILES</option>
+          <!--option value="png">Portable Network Graphics PNG</option>
+          <option value="svg">Scalable Vector Graphics SVG</option-->
+        </select>
+      </div>
+      <div class="save_file_form">
+        <textarea class="chemicalText" id="output_mol" wrap="off" readonly=""></textarea>
+        <form id="download_mol" style="margin-top:0.5em;text-align:center" action="/Ketcher/save" enctype="multipart/form-data" target="_self" method="post">
+          <input type="hidden" id="mol_data" name="filedata">
+          <input type="submit" class="serverRequired" value="Save..." style="display: none;">
+          <input id="save_ok" type="button" value="Close" class="btn_close">
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!--POP: Atom Properties-->
+  <div class="dialogWindow propDialog" id="atom_properties" style="display: none">
+    <div style="width:100%">
+      <div>Atom Properties</div>
+      <table class="atom_properties_form">
+        <tr>
+          <th><span>Label:</span></th>
+          <td><input id="atom_label" type="text"></td>
+          <th><span>Number:</span></th>
+          <td><input id="atom_number" type="text" readonly="readonly"></td>
+        </tr>
+        <tr>
+          <th><span>Charge:</span></th>
+          <td><input id="atom_charge" type="text" ></td>
+          <th><span>Valency:</span></th>
+          <td>
+            <select id="atom_valence">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">I</option>
+              <option value="2">II</option>
+              <option value="3">III</option>
+              <option value="4">IV</option>
+              <option value="5">V</option>
+              <option value="6">VI</option>
+              <option value="7">VII</option>
+              <option value="8">VIII</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th><span>Isotope:</span></th>
+          <td><input id="atom_isotope" type="text"></td>
+          <th><span>Radical:</span></th>
+          <td>
+            <select id="atom_radical">
+              <option value="0"></option>
+              <option value="2">Monoradical</option>
+              <option value="1">Diradical (singlet)</option>
+              <option value="3">Diradical (triplet)</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <th colspan="4" style="padding-top:  12px;"><b>Reaction flags ——</b></th>
+        </tr>
+        <tr>
+          <th><span>Inversion:</span></th>
+          <td>
+            <select id="atom_inversion">
+              <option value="0"></option>
+              <option value="1">Inverts</option>
+              <option value="2">Retains</option>
+            </select>
+          </td>
+          <th><span>Exact:</span></th>
+          <td>
+            <select id="atom_exactchange">
+              <option value="0"></option>
+              <option value="1">Exact change</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <th colspan="4" style="padding-top: 12px;"><b>Query specific ——</b></th>
+        </tr>
+        <tr>
+          <th><span>Ring bond count:</span></th>
+          <td>
+            <select id="atom_ringcount">
+              <option value="0"></option>
+              <option value="-2">As drawn</option>
+              <option value="-1">0</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </td>
+          <th><span>H count:</span></th>
+          <td>
+            <select id="atom_hcount">
+              <option value="0"></option>
+              <option value="1">0</option>
+              <option value="2">1</option>
+              <option value="3">2</option>
+              <option value="4">3</option>
+              <option value="5">4</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th><span>Substitution count:</span></th>
+          <td>
+            <select id="atom_substitution">
+              <option value="0"></option>
+              <option value="-2">As drawn</option>
+              <option value="-1">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </td>
+          <th><span>Unsaturation:</span></th>
+          <td>
+            <select id="atom_unsaturation">
+              <option value="0"></option>
+              <option value="1">Unsaturated</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>&nbsp;</th>
+          <td style="padding-top: 12px;">
+            <input id="atom_prop_ok" type="button" value="OK" class="btn_ok">
+            <input id="atom_prop_cancel" type="button" value="Cancel" class="btn_cancel">
+          </td>
+          <th></th>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!--POP: Attachment Points (click Attachment Point Tool)-->
+  <div class="dialogWindow propDialog" id="atom_attpoints" style="display:none;">
+    <div style="width:100%">
+      <div>Attachment Points</div>
+      <div class="attachement_points_form">
+        <label><input type="checkbox" id="atom_ap1"><span>Primary attachment point</span></label><br>
+        <label><input type="checkbox" id="atom_ap2"><span>Secondary attachment point</span></label>
+      </div>
+      <div class="btn_div">
+        <input id="atom_attpoints_ok" type="button" value="OK" class="btn_ok">
+        <input id="atom_attpoints_cancel" type="button" value="Cancel" class="btn_cancel">
+      </div>
+    </div>
+  </div>
+
+  <!--POP: Bond Properties-->
+  <div class="dialogWindow propDialog" id="bond_properties" style="display: none">
+    <div style="width:100%">
+      <div>Bond Properties</div>
+      <table class="bond_properties_form">
+        <tr>
+          <th><span>Type:</span></th>
+          <td>
+            <select id="bond_type">
+              <option value="single">Single</option>
+              <option value="up">Single Up</option>
+              <option value="down">Single Down</option>
+              <option value="updown">Single Up/Down</option>
+              <option value="double">Double</option>
+              <option value="crossed">Double Cis/Trans</option>
+              <option value="triple">Triple</option>
+              <option value="aromatic">Aromatic</option>
+              <option value="any">Any</option>
+              <option value="singledouble">Single/Double</option>
+              <option value="singlearomatic">Single/Aromatic</option>
+              <option value="doublearomatic">Double/Aromatic</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th><span>Topology:</span></th>
+          <td>
+            <select id="bond_topology">
+              <option value="0">Either</option>
+              <option value="1">Ring</option>
+              <option value="2">Chain</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th><span>Reacting Center:</span></th>
+          <td>
+            <select id="bond_center">
+              <option value="0">Unmarked</option>
+              <option value="-1">Not center</option>
+              <option value="1">Center</option>
+              <option value="2">No change</option>
+              <option value="4">Made/broken</option>
+              <option value="8">Order changes</option>
+              <option value="12">Made/broken and changes</option>
+              <!--option value="5">Order changes</option>
+              <option value="9">Order changes</option>
+              <option value="13">Order changes</option-->
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>&nbsp;</th>
+          <td>
+            <input id="bond_prop_ok" type="button" value="OK" class="btn_ok">
+            <input id="bond_prop_cancel" type="button" value="Cancel" class="btn_cancel">
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!--POP: S-Group Properties-->
+  <div class="dialogWindow sgroupDialog" id="sgroup_properties" style="display:none;">
+    <div style="width:100%">
+      <div>S-Group Properties</div>
+      <table class="sgroup_properties_form">
+        <tr>
+          <th><span>Type:</span></th>
+          <td><select id="sgroup_type">
+            <option value="GEN">Generic</option>
+            <option value="MUL">Multiple group</option>
+            <option value="SRU">SRU polymer</option>
+            <option value="SUP">Superatom</option>
+            <option value="DAT">Data</option>
+          </select></td>
+        </tr>
+        <tr class="generalSGroup">
+          <th><span>Connection:</span></th>
+          <td>
+            <select id="sgroup_connection">
+              <option value="ht">Head-to-tail</option>
+              <option value="hh">Head-to-head</option>
+              <option value="eu">Either unknown</option>
+            </select>
+          </td>
+        </tr>
+        <tr class="generalSGroup">
+          <th><span>Label (subscript):</span></th>
+          <td><input id="sgroup_label" type="text"></td>
+        </tr>
+        <tr class="dataSGroup">
+          <th><span>Field name:</span></th>
+          <td><input id="sgroup_field_name" type="text"></td>
+        </tr>
+        <tr class="dataSGroup">
+          <th><span>Field value:</span></th>
+          <td><textarea class="dataSGroupValue" id="sgroup_field_value"></textarea></td>
+        </tr>
+        <tr class="dataSGroup">
+          <th>&nbsp;</th>
+          <td>
+            <label><input type="radio" id="sgroup_pos_absolute" name="data_field_pos" checked=""><span>Absolute</span></label>
+            <label><input type="radio" id="sgroup_pos_relative" name="data_field_pos"><span>Relative</span></label>
+            <label><input type="radio" id="sgroup_pos_attached" name="data_field_pos"><span>Attached</span></label>
+          </td>
+        </tr>
+        <tr>
+          <th>&nbsp;</th>
+          <td>
+            <input id="sgroup_prop_ok" type="button" value="OK" class="btn_ok">
+            <input id="sgroup_prop_cancel" type="button" value="Cancel" class="btn_cancel">
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!--POP: Reaction Auto-Mapping Parameter-->
+  <div class="dialogWindow automapDialog" id="automap_properties" style="display: none">
+    <div style="width:100%">
+      <div>Reaction Auto-Mapping Parameter</div>
+      <table class="automap_properties_form">
+        <tr>
+          <th><span>Mode:</span></th>
+          <td>
+            <select id="automap_mode">
+              <option value="discard">Discard</option>
+              <option value="keep">Keep</option>
+              <option value="alter">Alter</option>
+              <option value="clear">Clear</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>&nbsp;</th>
+          <td>
+            <input id="automap_ok" type="button" value="OK" class="btn_ok">
+            <input id="automap_cancel" type="button" value="Cancel" class="btn_cancel">
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!--POP: Periodic table-->
+  <div class="dialogWindow elemTableDialog" id="elem_table" style="display: none;">
+    <div>
+      <div>Periodic table</div>
+      <div id="elem_table_area"><!--from element.js and elem_talbe.js and ui.js---></div>
+      <div id="periodic_tbl_rdo">
+        <label><input type="radio" id="elem_table_single" name="atom_list" onchange="if (!Prototype.Browser.IE) ui.elem_table_obj.setMode('single')" onclick="if (Prototype.Browser.IE) ui.elem_table_obj.setMode('single')">Single</label>
+        <label><input type="radio" id="elem_table_list" name="atom_list" onchange="if (!Prototype.Browser.IE) ui.elem_table_obj.setMode('list')" onclick="if (Prototype.Browser.IE) ui.elem_table_obj.setMode('list')">List</label>
+        <label><input type="radio" id="elem_table_notlist" name="atom_list" onchange="if (!Prototype.Browser.IE) ui.elem_table_obj.setMode('notlist')" onclick="if (Prototype.Browser.IE) ui.elem_table_obj.setMode('notlist')">Not List</label>
+      </div>
+      <div class="btn_div">
+        <input id="elem_table_ok" type="button" value="OK" class="btn_ok">
+        <input id="elem_table_cancel" type="button" value="Cancel" class="btn_cancel">
+      </div>
+    </div>
+  </div>
+
+  <!--POP: R-Group-->
+  <div class="dialogWindow rgroupTableDialog" id="rgroup_table" style="display:none;">
+    <div>
+      <div>R-Group</div>
+      <div id="rgroup_table_area"><!--from rgroup_table.js--></div>
+      <div class="btn_div">
+        <input id="rgroup_table_ok" type="button" value="OK" class="btn_ok">
+        <input id="rgroup_table_cancel" type="button" value="Cancel" class="btn_cancel">
+      </div>
+    </div>
+  </div>
+
+  <div class="dialogWindow rlogicTableDialog" id="rlogic_table" style="display:none;">
+    <div style="width:100%">
+      <div>R-Group Logic</div>
+      <table style="text-align:left">
+        <tbody>
+        <tr>
+          <td><label for="rlogic_occurrence">Occurrence:</label><input id="rlogic_occurrence" type="text" maxlength="50" size="10"></td>
+          <td><label for="rlogic_resth">RestH:</label><select id="rlogic_resth"><option value="0">Off</option><option value="1">On</option></select></td>
+          <td><label for="rlogic_if">Condition:</label><select id="rlogic_if"><option value="0">Always</option></select></td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="btn_div">
+        <input id="rlogic_ok" type="button" value="OK" class="btn_ok">
+        <input id="rlogic_cancel" type="button" value="Cancel" class="btn_cancel">
+      </div>
+    </div>
+  </div>
+
+  <!--POP: Reaxys Generics-->
+  <div class="dialogWindow reagenericsTableDialog" id="reagenerics_table" style="display:none;">
+    <div>
+      <div>Reaxys Generics</div>
+      <div style="height:0.5em"></div>
+      <div id="reagenerics_table_area"><!--related JS: reaxys.js--></div>
+      <div class="btn_div">
+        <input id="reagenerics_table_ok" type="button" value="OK" disabled="" class="btn_ok">
+        <input id="reagenerics_table_cancel" type="button" value="Cancel" class="btn_cancel">
+      </div>
+    </div>
+  </div>
+
+  <iframe name="buffer_frame" id="buffer_frame">
+    <!-- saved from url=(0011)about:blank -->
+    <html>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body></body>
+    </html>
+  </iframe>
+</div>
+<script>
+
+
+</script>
+</body>
+</html>

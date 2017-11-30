@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"><!--<![endif]-->
+<head>
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+    <title>Structured Search</title>
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.css" >
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+
+    <!-- Responsive -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/responsive.css">
+
+    <!-- Colors -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/colors/color1.css" id="colors">
+
+    <!-- Animation Style -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/animate.css">
+
+    <script type="text/javascript" src="javascript/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="header-sticky page-loading">
+<div class="loading-overlay">
+</div>
+
+<!-- Boxed -->
+<div class="boxed">
+    <!-- header -->
+    <div id="headerd"></div>
+    <div class="page-title">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-title-heading">
+                        <div class="breadcrumbs">
+                            <ul class="trail-items">
+                                <li>You are here:</li>
+                                <li class="trail-item"><a href="index.html">Home</a></li>
+                                <li class="trail-end">Structured Search</li>
+                            </ul>
+                        </div>
+                    </div><!-- /.page-title-captions -->
+                </div><!-- /.col-md-12 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div><!-- /.page-title -->
+    <div class="flat-row parallax parallax3">
+        <div class="container">
+            <div class="col-md-9" style="padding: 0;">
+                <iframe onload="loadMol();"  name="ketcherFrame" id="ketcherFrame" width="850px" height="527px" src="Ketcher_files/ketcher.html"></iframe>
+            </div>
+            <div class="col-md-3" style=" padding: 0;">
+                <div style="width: 220px;float: right;">
+                    <textarea placeholder="SMILES to Structure" name="" id="SMILES" cols="30" rows="10" style=" height: 144px;"></textarea>
+                    <button class="button" style="width:220px;">Convert</button>
+                </div>
+                <div class="ssSearch">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" id="radio_1" value="option1" checked>
+                            <span>Full Structure</span>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" id="radio_2" value="option2">
+                            <span>Substructure</span>
+                        </label>
+                    </div>
+                    <div class="radio" style="margin-bottom: 5px">
+                        <label>
+                            <input type="radio" name="optionsRadios" id="radio_3" value="option3" >
+                            <span>Similarity</span>
+                        </label>
+                    </div>
+                    <div class="Similarity disabled">
+                        <p>Similarity Value(0.6-0.9)</p>
+                        <input type="number" id="simNumber" name="simNumber" min="0.6" max="0.9" value="0.6" step="0.1" style="padding-left:5px;padding: 4px 0;height:36px;" oninput="if(value.length>3)value=value.slice(0,3)">
+                    </div>
+                    <button style="width:100%;margin-top: 28px" class="button">Search</button>
+                    <script>
+                        $('.radio input:radio').change(function(){
+                            $('.Similarity').addClass('disabled');$('#simNumber').attr('disabled','disabled');
+                            if($(this).attr('id') == 'radio_3'){
+                                $('.Similarity').removeClass('disabled');$('#simNumber').removeAttrs('disabled')
+                            }
+                        });
+                    </script>
+            </div>
+        </div>
+    </div>
+
+    <div id="flat-map">
+    </div><!-- /#flat-map -->
+    </div>
+    <div style="height: 100px;"></div>
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!-- Go Top -->
+    <a class="go-top">
+        <i class="fa fa-chevron-up"></i>
+    </a>
+
+</div>
+<script>
+    $('#headerd').load('header.html');
+    $('#footer').load('footer.html');
+
+
+
+
+
+    function loadMol() {
+        initialMolecule =
+            [
+                "",
+                "  Ketcher 02151213522D 1   1.00000     0.00000     0",
+                "",
+                "  6  6  0     0  0            999 V2000",
+                "   -1.1750    1.7500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0",
+                "   -0.3090    1.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0",
+                "   -0.3090    0.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0",
+                "   -1.1750   -0.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0",
+                "   -2.0410    0.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0",
+                "   -2.0410    1.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0",
+                "  1  2  1  0     0  0",
+                "  2  3  2  0     0  0",
+                "  3  4  1  0     0  0",
+                "  4  5  2  0     0  0",
+                "  5  6  1  0     0  0",
+                "  6  1  2  0     0  0",
+                "M  END"
+            ].join("\n");
+            ketcher.setMolecule(initialMolecule);
+    }
+    var mce_molfile = undefined;
+    function getKetcher() {
+        var frame = null;
+
+        if ('frames' in window && 'ketcherFrame' in window.frames)
+            frame = window.frames['ketcherFrame'];
+        else
+            return null;
+
+        if ('window' in frame)
+            return frame.window.ketcher;
+    }
+
+
+    function redioSearch(){
+        var ketcher = getKetcher();
+        mce_molfile = ketcher.getMolfile();
+        $('#molfiled').val(mce_molfile);
+    }
+    function getSmilesToMol(){
+        var zsmiles = $("#SMILES").val();
+        if(zsmiles==''){
+            return false;
+        }
+        var smiles ="smiles="+ $("#SMILES").val();
+        $.ajax({
+            url: "<%=request.getContextPath()%>/goSearch/querySimalFileQuery",
+            data:smiles,
+            cache:false,
+            dataType:'text',
+            success:function(data){
+                var str_mol = data;
+                var ketcher = getKetcher();
+                ketcher.setMolecule(data);
+            }
+        });
+    }
+</script>
+<!-- Javascript -->
+
+<script type="text/javascript" src="javascript/bootstrap.min.js"></script>
+<script type="text/javascript" src="javascript/jquery.easing.js"></script>
+<script type="text/javascript" src="javascript/jquery-waypoints.js"></script>
+<script type="text/javascript" src="javascript/jquery.cookie.js"></script>
+<script type="text/javascript" src="javascript/jquery-validate.js"></script>
+<script type="text/javascript" src="javascript/parallax.js"></script>
+<script type="text/javascript" src="javascript/switcher.js"></script>
+<script type="text/javascript" src="javascript/smoothscroll.js"></script>
+<script type="text/javascript" src="javascript/main.js"></script>
+
+</body>
+</html>

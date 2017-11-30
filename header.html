@@ -1,0 +1,98 @@
+<div class="top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="flat-address">
+
+                    <div class="custom-info">
+                        <span>Have any questions?</span>
+                        <i class="fa fa-reply"></i><a href="mailto:sales@chemexpress.cn" style="color:rgba(255, 255, 255, 0.75)!important;">sales@chemexpress.cn</a>
+                        <i class="fa fa-phone"></i>86-21-5899 8590
+                    </div>
+                </div><!-- /.flat-address -->
+            </div><!-- /.col-md-8 -->
+            <div class="col-md-4">
+                <div class="top-navigator">
+                    <ul>
+                        <li><a href="#" style="color:rgba(255, 255, 255, 0.75)!important;">Pages</a>
+                            <ul>
+                                <li><a href="abouts.html">Abouts</a></li>
+                                <li><a href="service.html">Service</a></li>
+                                <li><a href="shop.html">Products</a></li>
+                                <li><a href="contact.html">Contact Us</a></li>
+                                <li><a href="shop.html">Search Results</a></li>
+                                <li><a href="#">404 Page</a></li>
+                            </ul>
+                        </li>
+                        <li><a style="color:rgba(255, 255, 255, 0.75)!important;" href="StructuredSearch.html">Structured search</a>
+
+                        </li>
+                        <li><a href="shop.html" style="color:rgba(255, 255, 255, 0.75)!important;">Shop</a>
+                            <ul class="right-sub-menu">
+                                <li><a href="shop.html">Products</a></li>
+                                <li><a href="shop.html">New Products</a></li>
+                                <li><a href="shop-detail.html">Featured Products</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.top-navigator -->
+            </div><!-- /.col-md-4 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div><!-- /.top -->
+<!-- Header -->
+<header id="header" class="header clearfix  upscrolled ">
+    <div class="header-wrap clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div id="logo" class="logo">
+                        <a href="index.html">
+                            <img src="images/logo.png" width="140px" alt="images">
+                        </a>
+                    </div><!-- /.logo -->
+                    <div class="btn-menu" id="btn-menu">
+                        <span></span>
+                    </div><!-- //mobile menu button -->
+
+                    <div class="nav-wrap">
+                        <nav id="mainnav" class="mainnav">
+                            <ul class="menu">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="abouts.html">AboutUs</a></li>
+                                <li><a href="service.html">Service</a></li>
+                                <li><a href="shop.html">Products</a></li>
+                                <li><a href="orderInformaTion.html">Order</a></li>
+                                <li><a href="contact.html">Contact us </a></li>
+                            </ul><!-- /.menu -->
+                        </nav><!-- /.mainnav -->
+                    </div><!-- /.nav-wrap -->
+                </div><!-- /.col-md-9 -->
+                <div class="col-md-4">
+                    <div class="top-search">
+                        <div class="widget widget_search">
+                            <form class="search-form" id="search-form">
+                                <input type="search" name="search" class="search-field" placeholder="eg. Name, CAS">
+                                <input type="submit" class="search-submit">
+                            </form>
+                        </div>
+                        <div class="search_list" id="search_list">
+
+                        </div>
+                    </div>
+
+                </div><!-- /.col-md-3 -->
+
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div><!-- /.header-inner -->
+</header><!-- /.header -->
+<script>
+    var inp = $('.search-field'), lis = $('#search_list');
+    inp.focus(function () {
+        lis.slideDown()
+    });
+    inp.blur(function () {
+        lis.fadeOut(150)
+    })
+</script>

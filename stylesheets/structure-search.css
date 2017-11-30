@@ -1,0 +1,183 @@
+@charset "utf-8";
+/* CSS Document */
+/* mce en website - wdf - 2016-12-29 */
+/* content: reset, header, container(bread), footer, left contact */
+/* ====================================================
+                element style reset
+==================================================== */
+
+/* ====================================================
+     common style
+==================================================== */
+
+
+/* ====================================================
+     structure search
+==================================================== */
+
+/* ====================================================
+     structure list
+==================================================== */
+/*structure list*/
+
+
+/*structure list page*/
+.structure_list_pagiation {
+    width: 1000px;
+    margin: 20px auto 0 auto;
+    overflow: hidden;
+}
+
+.structure_list_pagiation .pagination_info {
+    float: left;
+}
+
+.structure_list_pagiation .pagination_info span {
+    color: #18ba60;
+}
+
+.structure_list_pagiation .pagination_info a {
+    color: #18ba60;
+    font-weight: bold;
+    border-bottom: 1px solid #18ba60;
+    display: inline-block;
+}
+
+.structure_list_pagiation .pagination_btn {
+    float: right;
+}
+
+.ui-paging-container {
+    color: #666;
+    font-size: 12px;
+}
+
+.ui-paging-container ul {
+    overflow: hidden;
+}
+
+.ui-paging-container ul, .ui-paging-container li {
+    list-style: none;
+}
+
+.ui-paging-container li {
+    display: inline-block;
+    font-weight: bold;
+}
+
+.ui-paging-container li.ui-pager {
+    font-size: 14px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    line-height: 40px;
+    margin-right: 12px;
+    background: #e8f1f5;
+}
+
+.ui-paging-container li.ui-pager a {
+    color: #18ba60;
+    display: block;
+}
+
+.ui-paging-container li.focus {
+    color: #ffffff;
+    cursor: default;
+    text-decoration: none;
+    font-weight: normal;
+    background-color: #18ba60;
+}
+
+.ui-paging-container li.ui-pager:hover {
+    color: #18ba60;
+}
+.ui-paging-container li.focus:hover{
+    color: #fff;
+}
+.ui-paging-container li.focus{
+
+}
+.ui-paging-container li.ui-pager::selection {
+    background: none;
+}
+
+.ui-paging-container li.ui-paging-ellipse {
+    border: none;margin-right: 12px;
+    font-weight: normal;
+}
+
+.ui-paging-container li.ui-page-prev, .ui-paging-container li.ui-page-next {
+    color: #331515;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    text-align: center;
+    line-height: 40px;
+    margin-right: 12px;
+    background: #e8f1f5;
+    /*background-image: url("../images/web/icon-paging.png");*/
+    /*background-repeat: no-repeat;*/
+}
+
+.ui-paging-container li.ui-page-prev {
+    background-position: 0 0;
+    margin-right: 12px;
+}
+
+.ui-paging-container li.ui-page-next {
+    background-position: 2px -44px;
+}
+
+.ui-paging-container li.ui-page-prev a, .ui-paging-container li.ui-page-next a {
+    color: #FFF;
+    display: block;
+}
+
+.ui-paging-container li.ui-page-prev a:hover, .ui-paging-container li.ui-page-next a:hover {
+    color: #18ba60;
+}
+
+.ui-paging-container li.ui-page-prev span {
+    display: block;
+    /*margin: 0 5px 0 17px;*/
+}
+
+.ui-paging-container li.ui-page-next span {
+    display: block;
+    /*margin: 0 10px 0 3px;*/
+}
+
+.ui-paging-container li.ui-page-prev:hover,
+.ui-paging-container li.ui-page-prev:focus {
+    background-position: 0 -22px;
+    background-color: #faf7fe;
+    color: #18ba60;
+}
+
+.ui-paging-container li.ui-page-next:hover,
+.ui-paging-container li.ui-page-next:focus {
+    background-position: 2px -66px;
+    background-color: #faf7fe;
+    color: #18ba60;
+}
+
+.ui-paging-container li.ui-pager-disabled, .ui-paging-container li.ui-pager-disabled:hover {
+    cursor: default;
+    background-color:  #e8f1f5;
+    color: #ccc;
+}
+
+.ui-paging-container li.ui-prev-disabled, .ui-paging-container li.ui-prev-disabled:hover {
+    background-position: 0 -22px;
+}
+
+.ui-paging-container li.ui-next-disabled, .ui-paging-container li.ui-next-disabled:hover {
+    background-position: 2px -66px;
+}
+
+/* ====================================================
+     products list
+==================================================== */

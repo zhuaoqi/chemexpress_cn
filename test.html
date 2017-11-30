@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .context .jcorgFilterTextParent h3 {
+            margin-top: 0;
+        }
+
+        .context .jcorgFilterTextParent {
+            padding: 10px 0;
+        }
+
+        .context .jcorgFilterTextParent:not(:last-child) {
+            border-bottom: 1px dashed #bdc3c7;
+        }
+
+
+        /**
+         * The following is not related to the plugin
+         */
+        body {
+            background: #fbfcfc;
+        }
+
+        .container {
+            max-width: 700px;
+        }
+
+        .form-group {
+            margin-bottom: 5px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            display: block;
+        }
+    </style>
+</head>
+<script type="text/javascript" src="javascript/jquery.min.js"></script>
+<script type="text/javascript" src="javascript/jcfilter.min.js"></script>
+<script>
+    $(function() {
+       jcOnPageFilter();
+    });
+</script>
+
+<body>
+<div>
+    <div >
+        <div>
+            <form>
+
+                    <input type="text"  placeholder="Lorem" name="keyword" >
+            </form>
+        </div>
+        <div class=" context">
+            <div class="jcorgFilterTextParent">
+                <h3>This is header 1</h3>
+                <div class="jcorgFilterTextChild">Hac magnis? Ac dignissim nec! Phasellus aliquet magnis nisi, cursus. </div>
+            </div>
+            <div class="jcorgFilterTextParent">
+                <h3>This is header 2</h3>
+                <div class="jcorgFilterTextChild">blah blah blah blah blah blah blah blah blah blah </div>
+            </div>
+            <div class="jcorgFilterTextParent">
+                <h3>This is header 3</h3>
+                <div class="jcorgFilterTextChild">Lorem ipsum dolor sit</div>
+            </div>
+            <div class="jcorgFilterTextParent">
+                <h3>This is header 4</h3>
+                <div class="jcorgFilterTextChild">consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
